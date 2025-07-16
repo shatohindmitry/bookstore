@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Моя библиотека</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h2>Добро пожаловать, <%= session.user.name %>!</h2>
+
+  <% if (upcomingExpirations && upcomingExpirations.length > 0) { %>
+    <div class="warning-box">
+      <h3>🔔 Напоминание: аренда скоро истекает</h3>
+      <ul>
+        <% upcomingExpirations.forEach(r => { %>
+          <li>📘 Книга ID: <%= r.book_id %> истекает <%= r.end_date %></li>
+        <% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <h3>📚 Доступные книги</h3>
+  <ul>
+    <% books.forEach(book => { %>
+      <li>
+        <strong><%= book.title %></strong> — <%= book.author %> | <%= book.category %> | <%= book.year %> | $<%= book.price %>
+        <form method="POST" action="/user/buy/<%= book.id %>">
+          <button>Купить</button>
+        </form>
+        <form method="POST" action="/user/rent/<%= book.id %>">
+          <label>Период аренды:</label>
+          <select name="period">
+            <option value="0.5">2 недели</option>
+            <option value="1">1 месяц</option>
+            <option value="3">3 месяца</option>
+          </select>
+          <button>Арендовать</button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+
+  <h3>📖 Арендованные книги</h3>
+  <ul>
+    <% rentals.forEach(r => { %>
+      <li>📘 Книга ID: <%= r.book_id %> | <%= r.start_date %> → <%= r.end_date %> | Статус: <%= r.status %></li>
+    <% }) %>
+  </ul>
+
+  <h3>🛒 Купленные книги</h3>
+  <ul>
+    <% purchases.forEach(p => { %>
+      <li>📗 Книга ID: <%= p.book_id %> | Куплена: <%= p.purchase_date %></li>
+    <% }) %>
+  </ul>
+
+  <p><a href="/">← На главную страницу</a></p>
+</body>
+</html>

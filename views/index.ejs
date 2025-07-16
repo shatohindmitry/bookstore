@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Книжный магазин</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h2>Добро пожаловать в магазин книг</h2>
+
+  <form method="GET" action="/">
+    <label>Сортировать по:</label>
+    <select name="sort">
+      <option value="author">Автор</option>
+      <option value="category">Категория</option>
+      <option value="year">Год</option>
+    </select>
+    <button type="submit">Сортировать</button>
+  </form>
+
+  <ul>
+    <% books.forEach(book => { %>
+      <li><strong><%= book.title %></strong> — <%= book.author %>, <%= book.category %>, <%= book.year %></li>
+    <% }) %>
+  </ul>
+
+  <p><a href="/auth/login">Войти</a> или <a href="/auth/register">Зарегистрироваться</a></p>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Администратор</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h2>Панель администратора</h2>
+
+  <h3>Добавить книгу</h3>
+  <form method="POST" action="/admin/add-book">
+    <input name="title" placeholder="Название" required>
+    <input name="author" placeholder="Автор" required>
+    <input name="category" placeholder="Категория" required>
+    <input name="year" type="number" placeholder="Год" required>
+    <input name="price" type="number" step="0.01" placeholder="Цена" required>
+    <button type="submit">Добавить</button>
+  </form>
+
+  <h3>Список книг</h3>
+  <ul>
+    <% books.forEach(book => { %>
+      <li>
+        <strong><%= book.title %></strong> — <%= book.author %>, <%= book.category %>, <%= book.year %>, $<%= book.price %>
+        [<%= book.available ? 'Доступна' : 'Недоступна' %>]
+        <form method="POST" action="/admin/toggle-availability/<%= book.id %>"><button>Статус</button></form>
+        <form method="POST" action="/admin/delete-book/<%= book.id %>"><button>Удалить</button></form>
+      </li>
+    <% }) %>
+  </ul>
+
+  <h3>Аренда</h3>
+  <ul>
+    <% rentals.forEach(r => { %>
+      <li>📘 Книга ID: <%= r.book_id %>, Пользователь ID: <%= r.user_id %>, <%= r.start_date %> → <%= r.end_date %> | <%= r.status %></li>
+    <% }) %>
+  </ul>
+
+  <h3>Пользователи</h3>
+  <ul>
+    <% users.forEach(u => { %>
+      <li>👤 <%= u.name %> — <%= u.email %></li>
+    <% }) %>
+  </ul>
+</body>
+</html>

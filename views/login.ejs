@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Вход</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h2>Вход</h2>
+  <form method="POST" action="/auth/login">
+    <label>Email:</label>
+    <input type="email" name="email" required><br>
+    <label>Пароль:</label>
+    <input type="password" name="password" required><br>
+    <button type="submit">Войти</button>
+  </form>
+  <p>Нет аккаунта? <a href="/auth/register">Зарегистрироваться</a></p>
+</body>
+</html>
